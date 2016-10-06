@@ -1,0 +1,162 @@
+{*** 상단 기본파일 | main/index.php ***}
+<div id="slide" class="st-menu">
+    <!--
+    <div class="slide_header" >
+        <ul>
+            <li id="tab_brand" class="selected"><a href="#">브랜드</a></li>
+            <li id="tab_category"><a href="#">카테고리</a></li>
+        </ul>
+    </div> -->
+    <div id="category" class="slide_wrap">
+
+        <div class="member-btns">
+            <div class="member-btn">
+                <!--{ ? gd_is_login() === false }-->
+                <span class="member-btn-in">
+                    <a href="../member/login.php">로그인</a>
+                </span>
+                <span class="member-btn-in subbtn">
+                    <a href="../member/join_method.php">회원가입</a>
+                </span>
+                <!--{ : }-->
+                <span class="member-btn-in stat-login">
+                    <span class="loginname t-o"><strong>{=gd_get_login_name()} </strong> 님<br/>방문을 환영합니다.</span>
+                </span>
+                <span class="member-btn-in subbtn">
+                    <a href="../member/logout.php">로그아웃</a>
+                </span>
+                <!--{ / }-->
+            </div>
+        </div>
+
+        <!-- gd5 nav login info -->
+        <div class="nav-member-info">
+            <div class="nav-member-info-item">
+                <a href="../mypage/index.php"><span class="sprite-icon icon-people2"></span>
+
+                    <p>마이페이지</p>
+                </a>
+            </div>
+            <div class="nav-member-info-item">
+                <a href="{=c.URI_MOBILE}mypage/wish_list.php"><span class="sprite-icon icon-heart2"></span>
+
+                    <p>찜리스트</p>
+                </a>
+            </div>
+            <div class="nav-member-info-item">
+                <a href="{=c.URI_MOBILE}goods/goods_today.php"><span class="sprite-icon icon-eye2"></span>
+
+                    <p>최근 본 상품</p>
+                </a>
+            </div>
+        </div>
+
+        <nav class="hamburger-gnb">
+            <ul class="dep1">
+                <li class="board-nav">
+                    <a href="#">게시판</a>
+                    <ul class="dep2">
+                        <!--{ @defaultBoardList }-->
+                        <li class="item"><a href="{=c.URI_MOBILE}board/list.php?bdId={.key_}">{.value_}</a></li>
+                        <!--{/}-->
+                        <li class="item"><a href="http://m.grayt85.godomall.com/board/list.php?bdId=sksk">미래게시판</a></li>
+                    </ul>
+                </li>
+                <li class="category-menu-area">
+                    <button type="button" class="btn-reset gnb-arr"><span
+                            class="icon-arr2"></span></button>
+                    <a href="#" id="category-menu" >카테고리</a>
+
+                    {=includeWidget("proc/category_all.html",'cateType','category')}
+                </li>
+                <li class="brand-nav">
+                    <button type="button" class="btn-reset gnb-arr"><span
+                            class="icon-arr2"></span></button>
+                    <a href="#" id="brand-menu">브랜드</a>
+
+                    {=includeWidget("proc/category_all.html",'cateType','brand')}
+                </li>
+
+                <!-- <li><a href="#" class="item wishlist" onClick="javascript:goMenu('wish');">찜 리스트</a></li> --><!-- <li><a href="#" id="viewgoods-btn" onClick="javascript:goMenu('viewgoods');">최근 본 상품</a> </li> -->
+            </ul>
+        </nav>
+
+       <!-- /cate_wrapper -->
+    </div>
+    <button class="st-btn-close bn_x"><span class="sp">닫기</span></button>
+</div>
+<div class="st-pusher"><div class="st-overlay"> </div><div class="st-content">
+
+    <div class="st-content-inner pop_header" id="wrap">
+
+        <!-- header -->
+        <!-- [D] 스크롤 시 class="fix" 추가 -->
+        <div id="header" class="fix">
+            <!--{ ? gCurrentPageName == 'main/index' }-->
+            <div class="banner-warp-top">
+			<!--{ @dataBanner('2058459803') }-->{.tag}<!--{ / }-->
+            </div>
+            <!--{ / }-->
+            <!-- [D] 배너에 해당하는 색상 inline으로 삽입 -->
+            <!--
+            <div class="banner" style="background:#3d3e50">
+                <a href="#"><img src="im/temp/@banner_1280X120.jpg" alt=""></a>
+                <a href="#" class="cls">배너닫기</a>
+            </div> -->
+            <div class="head">
+                <h1 class="h_logo"><a href="/"><!--{ @dataBanner('2715041752') }-->{.tag}<!--{ / }--></a></h1>
+                <button type="button" class="st-btn-menu bn bn_menu" data-effect="st-effect-1"><span class="sp">메뉴</span></button>
+               <input type="text" class="bn_srch sp" >
+                <a href="/mypage/index.php" class="bn bn_my"><span class="sp">마이페이지</span></a>
+                <a href="/order/cart.php" class="bn bn_basket"><span class="cart-num">{=dataCartGoodsCnt()}</span><span class="sp"></span></a>
+            </div>
+
+            <!--{ ? layout.current_page == 'y' && layout.page_name }-->
+            <section id="cate-navi-area">
+                <div class="top_path" style="display: block;">
+                    <ul class="now_path">
+                        <li class="pathitem allpath">홈</li>
+                        <!--{ ? gCurrentPageName == 'goods/goods_list' }-->
+                        <li class="patharrow" >{=dataCategoryPosition(cateCd,'</li><li class="patharrow">',cateType)}</li>
+                        <!--{ : }-->
+                        <li class="patharrow">{=layout.page_name}</li>
+                        <!--{ / }-->
+                    </ul>
+                </div>
+            </section>
+            <!--{ / }-->
+
+            <!--{ ? gCurrentPageName != 'main/index' }-->
+            <div class="head sub">
+                <!--{ ? gReturnUrl }-->
+                <a href="{=gReturnUrl}" class="bn bn_back v2"><span class="sp">이전</span></a>
+                <!--{ : }-->
+                <a href="{=gReferer}" class="bn bn_back js_bn_back v2"><span class="sp">이전</span></a>
+                <!--{ / }-->
+                <h1 class="h_tit elp"><a href="#" class="js_page_reload"><!--{ ? gPageName }-->{=gPageName}<!--{:}-->{=layout.page_name}<!--{/}--></a></h1>
+                <!--{ ? gCurrentPageName == 'goods/goods_view' }-->
+                <!--{ ? snsShareUseFl }-->
+                <button class="bn bn_share js-share-open"><span class="sp">공유하기</span></button>
+                <!--{ / }-->
+                <button type="button" class="bn bn_zzim btn-add-wish"><span class="sp">찜하기</span></button>
+                <!--{ / }-->
+                <!--{ ? (gCurrentPageName == 'board/list' || gCurrentPageName == 'mypage/mypage_qa' || gCurrentPageName == 'mypage/mypage_goods_qa' || gCurrentPageName == 'mypage/mypage_goods_review') && bdList.cfg.auth.write == 'y'}-->
+                <a href="/board/write.php?bdId={req.bdId}&goodsNo={goodsView.goodsNo}&gboard=r" class="write-btn" data-toggle="modal" data-target="#popup-board">글쓰기</a>
+                <!--{ / }-->
+                <!--{ ? gCurrentPageName == 'board/view' }-->
+                <a href="/board/list.php?bdId={req.bdId}" class="write-btn list-btn">목록가기</a>
+                <!--{ / }-->
+            </div>
+            <!--{ / }-->
+        </div>
+    </div>
+    <!-- //header -->
+    <hr>
+
+    <!-- [D] 상단배너 삭제 시 style="padding-top:헤더 높이에 맞춰 개발 계산적용" -->
+    <!-- container -->
+    <div id="container">
+        <hr>
+
+        <!-- content -->
+        <div id="content">
